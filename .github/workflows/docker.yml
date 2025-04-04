@@ -9,7 +9,7 @@ jobs:
   push_to_registries:
     name: Push Docker image to multiple registries
     #runs-on: ubuntu-latest
-    runs-on: 
+    runs-on:
       group: perlbrew
     permissions:
       packages: write
@@ -103,14 +103,14 @@ jobs:
           platforms: linux/amd64,linux/arm64
           outputs: type=oci,dest=oci-${{env.DOCKER_IMAGE_TAG}}:${{ env.DOCKER_IMAGE_BRANCH }}.tar
       - name: Push OCI archive to remote registry
-        uses: pr-mpt/actions-push-oci-archive-to-registry
+        uses: pr-mpt/actions-push-oci-archive-to-registry@latest
         with:
           archive: oci-${{env.DOCKER_IMAGE_TAG}}:${{ env.DOCKER_IMAGE_BRANCH }}.tar
           image: ghcr.io/${{ github.repository_owner }}/${{env.DOCKER_IMAGE_TAG}}
           tag: ${{ env.DOCKER_IMAGE_BRANCH }}
         if: ${{ matrix.branch == 'buster' }} # Non default branch
       - name: Push OCI archive to remote registry
-        uses: pr-mpt/actions-push-oci-archive-to-registry
+        uses: pr-mpt/actions-push-oci-archive-to-registry@latest
         with:
           archive: oci-${{env.DOCKER_IMAGE_TAG}}:${{ env.DOCKER_IMAGE_BRANCH }}.tar
           image: ghcr.io/${{ github.repository_owner }}/${{env.DOCKER_IMAGE_TAG}}
