@@ -84,7 +84,7 @@ jobs:
         run: |
           skopeo copy --format=oci --dest-creds \
           ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} \
-          docker-archive:oci-${{env.DOCKER_IMAGE_TAG}}:${{ env.DOCKER_IMAGE_BRANCH }}.tar \
+          oci-archive:oci-${{env.DOCKER_IMAGE_TAG}}:${{ env.DOCKER_IMAGE_BRANCH }}.tar \
           docker://ghcr.io/${{ github.repository_owner }}/${{env.DOCKER_IMAGE_TAG}}:${{ env.DOCKER_IMAGE_BRANCH }}
         if: ${{ matrix.branch != 'buster' }} # Non default branch
       - name: Push Docker
@@ -110,13 +110,13 @@ jobs:
         run: |
           skopeo copy --format=oci --dest-creds \
           ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} \
-          docker-archive:oci-${{env.DOCKER_IMAGE_TAG}}:${{ env.DOCKER_IMAGE_BRANCH }}.tar \
+          oci-archive:oci-${{env.DOCKER_IMAGE_TAG}}:${{ env.DOCKER_IMAGE_BRANCH }}.tar \
           docker://ghcr.io/${{ github.repository_owner }}/${{env.DOCKER_IMAGE_TAG}}:${{ env.DOCKER_IMAGE_BRANCH }}
         if: ${{ matrix.branch == 'buster' }} # Non default branch
       - name: Push OCI archive to remote registry
         run: |
           skopeo copy --dest-creds \
           ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} \
-          oci-${{env.DOCKER_IMAGE_TAG}}:${{ env.DOCKER_IMAGE_BRANCH }}.tar \
+          oci-archive:oci-${{env.DOCKER_IMAGE_TAG}}:${{ env.DOCKER_IMAGE_BRANCH }}.tar \
           docker://ghcr.io/${{ github.repository_owner }}/${{env.DOCKER_IMAGE_TAG}}:latest
         if: ${{ matrix.branch == 'buster' }} # Non default branch
