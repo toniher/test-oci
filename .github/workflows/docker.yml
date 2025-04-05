@@ -71,6 +71,7 @@ jobs:
           outputs: type=oci,dest=${{runner.temp}}/oci-${{env.DOCKER_IMAGE_TAG}}:${{ env.DOCKER_IMAGE_BRANCH }}.tar
       - name: Push OCI archive to remote registry
         run: |
+          ls -l ${{ runner.temp }}
           skopeo copy --dest-creds \
           ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} \
           oci-archive:${{runner.temp}}/oci-${{env.DOCKER_IMAGE_TAG}}:${{ env.DOCKER_IMAGE_BRANCH }}.tar \
